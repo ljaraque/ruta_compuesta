@@ -24,3 +24,18 @@ URLs montadas sobre ruta `dash/` del proyecto base:
 	Correspondiente a la función `grafico_principal` del archivo `views.py`de la aplicación `dashboard`.  
 2. URL: **localhost:8000/buscador**  
 	Correspondiente a la función `google` del archivo `views.py` de la aplicación `dashboard`. Esta función efectúa un redireccionamiento a `http://www.google.com`  
+
+#### Acerca de funciones en `views.py`  
+
+En aplicación `app_ex`:  
+- `inicio`: Renderiza template `elefante.html` con `context={'texto':'Texto de Ejercicio 1'}`.  
+- `empresa`: Renderiza template `empresa.html` con `context={'texto':'Texto de Ejercicio 1'}`.  
+- `contacto`: No implementada.  
+
+En aplicación `dashboard`:  
+- `grafico_principal`: Renderiza template `grafico.html`, sin `context`.  
+- `google`: Redirecciona a `https://www.google.com`.  
+
+
+
+

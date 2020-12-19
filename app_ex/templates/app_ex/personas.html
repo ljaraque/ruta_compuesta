@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personas</title>
+</head>
+<body>
+    {# caso 1 #}
+    {# if y for #}
+    <h3>Caso 1: imprime si hay más de 2 elementos</h3>
+    {% if lista %}
+    <h4>Hay estos elementos {{lista}}</h4>
+    {% if lista|length > 2 %}
+    {% for elemento in lista%}
+    <p>{{elemento}}</p>
+    {% endfor%}
+    {% else %}
+    <p>Son menos de 2 elementos</p>
+    {% endif %}
+    {% endif %}
+
+
+    {# caso 2 #}
+    <h3>Caso 2: imprime si hay otros</h3>
+    <ul>
+        {% for otro in otros  %}
+        <li>{{ otro }}</li>
+        {% endfor %}
+    </ul>
+    <p>{{otros|length}}</p>
+    {% if otros %}
+        <p>Hay: {{ otros|length }} elementos en otros</p>
+        <ol>
+        {% for otro in otros %}
+            <li>{{otro}}</li>
+        {% endfor %}
+        </ol>
+    {% else %}
+        <p>No hay otras personas</p>
+    {% endif %}
+
+
+    {# caso 3 #}
+    <h3>Caso 3:imprime si hay otros (opción 2)</h3>
+    <ul>
+        {% for otro in otros  %}
+        <li>{{ otro }}</li>
+        {% endfor %}
+    </ul>
+    <p>{{otros|length}}</p>
+    {% ifnotequal otros|length 0 %}
+        <p>Hay: {{ otros|length }} nuevas personas</p>
+        <ol>
+        {% for otro in otros %}
+            <li>{{otro}}</li>
+        {% endfor %}
+        </ol>
+    {% else %}
+        <p>No hay nuevas personas</p>
+    {% endifnotequal %}
+
+
+    {# imprimir dataset #}
+    {# caso 4 #}
+    <h3>Caso 4: tabla desde dataset dict</h3>
+    <table>
+        <thead>
+            <th>sepal_length</th>
+            <th>sepal_width</th>
+            <th>petal_length</th>
+            <th>petal_width</th>
+            <th>species</th>
+        </thead>
+        <tbody>
+            {% for linea in data|slice:":15" %}
+            <tr>
+                <td>{{linea.sepal_length}}</td>
+                <td>{{linea.sepal_width}}</td>
+                <td>{{linea.petal_length}}</td>
+                <td>{{linea.petal_width}}</td>
+                <td>{{linea.species}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {# caso 5 #}
+    <h3>Caso 5: key, values desde dataset dict</h3>
+    {# imprimir dataset #}
+    {% for linea in data|slice:":4" %}
+        {% for key, value in linea.items %}
+        <p><b>{{key}}</b>: {{value}}</p>
+        {% endfor %}
+    {% endfor %}
+</body>
+</html>

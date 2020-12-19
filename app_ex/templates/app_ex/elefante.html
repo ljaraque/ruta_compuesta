@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,5 +9,8 @@
 <body>
     <h1>Pagina Ejercicio 1</h1>
     <h4>{{texto}}</h4>
+    <img width="60%" src="{% static 'app_ex/img/foto.jpg' %}" alt="">
+    <p>{{data}}</p>
+    <a href="{% url 'dashboard:grafico' %}">Link a grafico de dashboard</a>
 </body>
 </html>

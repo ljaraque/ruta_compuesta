@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hola persona</h1>
+    <ul>
+        {% for nombre in nombres  %}
+        <li>{{ nombre }}</li>
+        {% endfor %}
+    </ul>
+
+
+
+    {# caso 1 #}
+    {# if y for #}
+    <h3>Caso 1: imprime si hay más de 2 elementos</h3>
+    {% if lista %}
+        <h4>Hay estos elementos {{lista}}</h4>
+        {% if lista|length > 2 %}
+            {% for elemento in lista%}
+            <p>{{elemento}}</p>
+            {% endfor%}
+        {% else %}
+            <p>Lo siento, Son menos de 3 elementos</p>
+            <p>No mostramos listas de menos de 3 elementos</p>
+        {% endif %}
+    {% else %}
+        <h4>No existe la variable "lista"</h4>
+    {% endif %}
+
+        
+</body>
+</html>

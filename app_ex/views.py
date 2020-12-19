@@ -20,5 +20,5 @@ def contacto(request):
     return render(
         request, 
         'app_ex/contacto.html', 
-        context={'texto':'Texto de Ejercicio 1'}
+        context={'texto': 'Texto de Ejercicio 1'}
         )

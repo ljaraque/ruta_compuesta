@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+    {% block content %}
+    
+    {{ block.super }}
+
+    <h2>{{texto}}</h2>
+    <ul>
+        {# mostramos solo las primeras 8 filas#}
+        {% for cosa in data|slice:"0:8" %}
+        <li>{{cosa}}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Lo mismo en formato de Key, Value</h2>
+    {% for cosa in data|slice:"0:8" %}
+    <hr>
+        {% for clave, valor in  cosa.items %}
+        <p>{{clave}} : {{valor}}</p>
+        {% endfor %}
+    {% endfor %}
+    <hr>
+    
+    <h2>Lo mismo en formato de tabla</h2>
+    <table border=1>
+        <thead>
+            <td>sepal_length</td>
+            <td>sepal_width</td>
+            <td>petal_length</td>
+            <td>petal_width</td>
+            <td>species</td>
+        </thead>
+        <tbody>
+            {% for cosa in data|slice:"0:15" %}
+            <tr>
+                <td>{{cosa.sepal_length}}</td>
+                <td>{{cosa.sepal_width}}</td>
+                <td>{{cosa.petal_length}}</td>
+                <td>{{cosa.petal_width}}</td>
+                <td>{{cosa.species}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endblock %}
+

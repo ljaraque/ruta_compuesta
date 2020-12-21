@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 1</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
     <h1>Pagina Ejercicio 1</h1>
     <h4>{{texto}}</h4>
-</body>
-</html>
+    <img width="60%" src="{% static 'app_ex/img/foto.jpg' %}" alt="">
+{% endblock %}

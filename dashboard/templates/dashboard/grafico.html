@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,10 @@
     <title>Document</title>
 </head>
 <body>
+    {% load static %}
     <h1>Este es el grafico!!!</h1>
     <h2>GRAFICO</h2>
+    <a href="{% url 'app_ex:personas' %}">Link a personas</a><br>
+    <img width="40%" src="{% static 'dashboard/img/python.png' %}" alt="">
 </body>
 </html>

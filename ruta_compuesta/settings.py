@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'ruta_compuesta.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS':  [(os.path.join(BASE_DIR, 'templates')),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,3 +121,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# destino donde se copian statics luego de python manage.py collectstatic
+# serán buscados en directorio static de cada app y en directorio static en base dir
+# si es que se define más abajo con STATICFILES_DIR
+STATIC_ROOT = os.path.join(BASE_DIR, 'root')
+
+# en caso de tener archivos estáticos en base dir que también deban ser recolectados
+'''
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+]
+'''

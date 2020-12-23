@@ -42,6 +42,6 @@ def tabladatos(request):
         for fila in data:
             data_list.append(fila)
 
-        context = {'texto': 'Estos son datos de iris',
+        datos_para_context = {'texto': 'Estos son datos de iris',
                     'data': data_list}
-    return render(request, 'app_ex/iris.html', context = context)
+    return render(request, 'app_ex/iris.html', context = datos_para_context)

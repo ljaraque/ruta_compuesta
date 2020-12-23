@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app_ex.urls')),
     path('dash/', include('dashboard.urls')),
+    path('formularios/', include('formularios.urls')),
 ]

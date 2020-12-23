@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'app_ex',
     'dashboard',
+    'autoriza',
 
 ]
 
@@ -54,10 +55,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ruta_compuesta.urls'
 
+# agregado 'DIRS': [(os.path.join(BASE_DIR, 'templates')),],'
+# para encontrar el html base a ser extendido
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [(os.path.join(BASE_DIR, 'templates')),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,5 +123,18 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
+# lo que aparece en la URL
+STATIC_URL = '/static2sdsd/'
+# destino donde se copian statics luego de python manage.py collectstatic
+# serán buscados en directorio static de cada app y en directorio static en base dir
+# si es que se define más abajo con STATICFILES_DIR
+STATIC_ROOT = os.path.join(BASE_DIR, 'root')
+# en caso de tener archivos estáticos en base dir que también deban ser recolectados
+'''
+STATICFILES_DIRS = [
+        os.path.join(BASE_DIR, 'static'),
+]
+'''
 
+# esto es para que CBV no redirecciones al default "/accounts/login"
+LOGIN_URL = '/cuentas/login'

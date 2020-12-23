@@ -1,16 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block content %}
 {% load static %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 1</title>
-</head>
-<body>
+
     <h1>Pagina Ejercicio 1</h1>
+    <p>You can <a href="{% url 'logout' %}?next={% url 'login' %}">Logout</a></p>
     <h4>{{texto}}</h4>
     <img width="60%" src="{% static 'app_ex/img/foto.jpg' %}" alt="">
     <p>{{data}}</p>
     <a href="{% url 'dashboard:grafico' %}">Link a grafico de dashboard</a>
-</body>
-</html>
+    <a href="{% url 'covid19:grafico' %}">Link a grafico de dashboard</a>
+    <a href="{% url 'covid19-managers:grafico' %}">Link a grafico de dashboard</a>
+
+{% endblock %}

@@ -19,5 +19,8 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('app_ex.urls')),
-    path('dash/', include('dashboard.urls')),
+    path('d/', include('dashboard.urls', namespace="covid19-managers")),
+    path('dash/', include('dashboard.urls', namespace="covid19")),
+    path('cuentas/', include('django.contrib.auth.urls')),
+    path('autoriza/', include('autoriza.urls')), 
 ]

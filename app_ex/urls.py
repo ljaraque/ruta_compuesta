@@ -6,7 +6,8 @@ app_name = "app_ex"
 
 urlpatterns = [
     path("", views.inicio),
-    path("empresa/", views.empresa),
+    path("empresa/", views.EmpresaView.as_view()),
+    #path("empresa/", views.empresa),
     path("contacto/", views.contacto),
     path("personas/", views.personas),    
 ]

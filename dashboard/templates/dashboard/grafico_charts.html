@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Charts.js</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Carga de Script CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+        <style>
+            .chart {
+                width:40%;
+            }
+        </style>
+    </head>
+    <body>
+
+        <!-- Se crea el grafico y se asigna ancho y alto -->
+        <div class="chart">
+            <canvas id="myChart"></canvas>
+        </div>
+        <div class="chart">
+            <canvas id="myChart2"></canvas>
+        </div>
+        
+    </body>
+    <script>
+        var ctx= document.getElementById("myChart");
+        var myChart= new Chart(ctx,{
+
+            /* En type se define el tipo de grafico a mostrar */
+
+            type:"bar",
+            data:{
+                labels:{{etiquetas_grafico1|safe}},
+                datasets:[{
+                        label:'Examen Tipo 1',
+                        data:{{datos_grafico1|safe}},
+
+                }]
+            },
+            options:{
+                scales:{
+                    yAxes:[{
+                            ticks:{
+                                beginAtZero:true
+                            }
+                    }]
+                }
+            }
+        });
+
+        var ctx2= document.getElementById("myChart2");
+        var myChart2= new Chart(ctx2,{
+
+            /* En type se define el tipo de grafico a mostrar */
+
+            type:"bar",
+            data:{
+                labels:{{etiquetas_grafico2|safe}},
+                datasets:[{
+                        label:'Examen Tipo 2',
+                        data:{{datos_grafico2|safe}},
+
+                }]
+            },
+            options:{
+                scales:{
+                    yAxes:[{
+                            ticks:{
+                                beginAtZero:true
+                            }
+                    }]
+                }
+            }
+        });
+    </script>
+</html>

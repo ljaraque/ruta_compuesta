@@ -7,7 +7,7 @@
 </head>
 <body>
     <h2>El formulario se recibió con éxito!</h2>
-    <h4><a href="{% url 'formularios:crear_guitarra2' %}">Crear otra guitarra</a></h4>
+    <h4><a href="{% url 'formularios:crear_guitarra' %}">Crear otra guitarra</a></h4>
     {% for guitarra in guitarras %}
     <p>{{guitarra}}</p>
     {% endfor %}

@@ -6,9 +6,9 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="" method="post">
+    <form action="" method="post" novalidate>
         {% csrf_token %}
-        <table>
+        <table border="1">
             {{form.as_table}}
         </table>
         <input type="submit" value="Submit">

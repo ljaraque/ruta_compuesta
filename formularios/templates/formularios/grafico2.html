@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Charts.js</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Carga de Script CDN -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+        <style>
+            .chart {
+                width:40%;
+            }
+        </style>
+    </head>
+   
+    <body>
+
+        <!-- Se crea el grafico y se asigna ancho y alto -->
+        <div class="chart">
+        <canvas id="myChart"></canvas>
+        </div>  
+    </body>
+    <script>
+        var ctx= document.getElementById("myChart");
+        var myChart= new Chart(ctx,{
+
+            /* En type se define el tipo de grafico a mostrar */
+
+            type:"bar",
+            data:{
+                labels:['Dato1','Dato2','Dato3','Dato4', 'Dato5'],
+                datasets:[{
+                        label:'Cuerdas',
+                        data:{{valor}},
+                        backgroundColor:[
+
+                            /* Se define el color en formato RGB por cada barra */
+
+                            'rgb(51, 255, 62)',
+                            'rgb(51, 93, 255)',
+                            'rgb(207, 40, 52)',
+                            'rgb(116, 51, 255)',
+                            'rgb(51, 212, 255)'
+                        ]
+                }]
+            },
+            options:{
+                scales:{
+                    yAxes:[{
+                            ticks:{
+                                beginAtZero:true
+                            }
+                    }]
+                }
+            }
+        });
+    </script>
+</html>

@@ -59,4 +59,16 @@ def eliminar_guitarra(request, id):
             json.dump(guitarras, file)
         return redirect('formularios:crear_exitoso')
     context = {'id': id} 
-    return render(request, "formularios/eliminar_guitarra.html", context) 
+    return render(request, "formularios/eliminar_guitarra.html", context)
+
+def grafico2(request):
+    lista = []
+    filename= "/formularios/static/formularios/data/guitarras.json"
+    with open(str(settings.BASE_DIR)+filename, "r") as file:
+        guitarras=json.load(file)
+        diccionario = guitarras.get('guitarras')
+        for elemento in diccionario[-5:]:
+            cuerdas = elemento.get('cuerdas')
+            lista.append(cuerdas)
+    context = {'valor' : lista}
+    return render(request, "formularios/grafico2.html", context)

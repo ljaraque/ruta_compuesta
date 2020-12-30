@@ -6,10 +6,10 @@
     <title>Document</title>
 </head>
 <body>
-    <h2>El formulario se recibió con éxito!</h2>
+    <h2>Listado Actualizado de Nuestras Guitarras</h2>
     <h4><a href="{% url 'formularios:crear_guitarra' %}">Crear otra guitarra</a></h4>
     {% for guitarra in guitarras %}
-    <p>{{guitarra}}</p>
+    <p>{{guitarra}} <a href="{% url 'formularios:eliminar_guitarra' id=guitarra.id %}"> | Eliminar</a></p> 
     {% endfor %}
 </body>
 </html>

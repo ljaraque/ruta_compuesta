@@ -13,6 +13,8 @@ def crear_guitarra(request):
         filename= "/formularios/static/formularios/data/guitarras.json"
         with open(str(settings.BASE_DIR)+filename, 'r') as file:
             guitarras=json.load(file)
+        form_data['id'] = guitarras['ultimo_id_generado'] + 1
+        guitarras['ultimo_id_generado'] = form_data['id']
         guitarras['guitarras'].append(form_data)
         with open(str(settings.BASE_DIR)+filename, 'w') as file:
             json.dump(guitarras, file)
@@ -29,6 +31,8 @@ def crear_guitarra_manual(request):
         filename= "/formularios/static/formularios/data/guitarras.json"
         with open(str(settings.BASE_DIR)+filename, 'r') as file:
             guitarras=json.load(file)
+        form_data['id'] = guitarras['ultimo_id_generado'] + 1
+        guitarras['ultimo_id_generado'] = form_data['id']
         guitarras['guitarras'].append(form_data)
         with open(str(settings.BASE_DIR)+filename, 'w') as file:
             json.dump(guitarras, file)
@@ -40,3 +44,19 @@ def crear_exitoso(request):
     with open(str(settings.BASE_DIR)+filename, "r") as file:
         guitarras=json.load(file)
     return render(request, 'formularios/crear_exitoso.html', context=guitarras)
+
+def eliminar_guitarra(request, id):
+    if request.method == "POST":
+        filename= "/formularios/static/formularios/data/guitarras.json"
+        with open(str(settings.BASE_DIR)+filename, "r") as file:
+            guitarras=json.load(file)
+        for guitarra in guitarras['guitarras']:
+            print(int(guitarra['id']), int(id))
+            if int(guitarra['id']) == int(id):
+                guitarras['guitarras'].remove(guitarra)
+                break
+        with open(str(settings.BASE_DIR)+filename, 'w') as file:
+            json.dump(guitarras, file)
+        return redirect('formularios:crear_exitoso')
+    context = {'id': id} 
+    return render(request, "formularios/eliminar_guitarra.html", context) 

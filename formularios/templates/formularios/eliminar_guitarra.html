@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form method="POST"> 
+        {% csrf_token %} 
+        Está seguro de eliminar la guitarra con id = {{id}}? 
+        <input type="submit" value="Sí" /> 
+        <a href="{% url 'formularios:eliminar_guitarra' id=id%}">Cancelar</a> 
+    </form> 
+</body>
+</html>

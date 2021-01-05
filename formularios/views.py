@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from .forms import PrimerFormulario
 from django.conf import settings
 import json
+from .models import Guitarra
 
 # Create your views here.
 def crear_guitarra(request):
@@ -72,3 +73,14 @@ def grafico2(request):
             lista.append(cuerdas)
     context = {'valor' : lista}
     return render(request, "formularios/grafico2.html", context)
+
+def prueba_models(request):
+    for i in range(0,4):
+        guitarra = Guitarra(marca='Jackson', 
+					modelo='RR3', 
+					cuerdas=7, 
+					fecha_compra='2020-12-01')
+        guitarra.save()
+    guitarras = Guitarra.objects.values()
+    context = {'guitarras': guitarras}
+    return render(request, 'formularios/prueba_models.html', context)

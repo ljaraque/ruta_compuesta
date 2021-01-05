@@ -23,4 +23,5 @@ urlpatterns = [
     path('dash/', include('dashboard.urls', namespace="covid19")),
     path('cuentas/', include('django.contrib.auth.urls')),
     path('autoriza/', include('autoriza.urls')), 
+    path('formularios/', include('formularios.urls')),
 ]

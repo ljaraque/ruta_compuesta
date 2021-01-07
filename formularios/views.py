@@ -75,7 +75,7 @@ def grafico2(request):
     return render(request, "formularios/grafico2.html", context)
 
 def prueba_models(request):
-    for i in range(0,4):
+    for i in range(0,1):
         guitarra = Guitarra(marca='Jackson', 
 					modelo='RR3', 
 					cuerdas=7, 

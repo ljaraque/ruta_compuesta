@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Listado Actualizado de Nuestras Guitarras</h2>
+    <h4><a href="{% url 'formularios:crear_guitarra_db' %}">Crear otra guitarra</a></h4>
+    {% for guitarra in guitarras %}
+    <p>{{guitarra}} <a href="{% url 'formularios:eliminar_guitarra_db' id=guitarra.id %}"> | Eliminar</a></p> 
+    {% endfor %}
+</body>
+</html>

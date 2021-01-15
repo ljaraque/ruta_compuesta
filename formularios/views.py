@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PrimerFormulario
 from django.conf import settings
 import json
 from .models import Guitarra, Musico
 
-#CRUD: CREATE con archivo
+#CRUD: CREATE con archivoListado Actualizado de Nuestras Guitarras
 def crear_guitarra(request):
     formulario = PrimerFormulario(request.POST or None)
     context = {'form': formulario}
@@ -42,9 +42,10 @@ def crear_guitarra_db(request):
     return render(request, 'formularios/crear_guitarra_db.html', context)
 
 
-'''
 def crear_guitarra_manual(request):
-    formulario =Guitarra.is_valid():
+    formulario = PrimerFormulario(request.POST or None)
+    context = {'form': formulario}
+    if formulario.is_valid():
         form_data = formulario.cleaned_data
         form_data['fecha_compra']=form_data['fecha_compra'].strftime("%Y-%m-%d")
         filename= "/formularios/static/formularios/data/guitarras.json"
@@ -57,8 +58,6 @@ def crear_guitarra_manual(request):
             json.dump(guitarras, file)
         return redirect('formularios:crear_exitoso')
     return render(request, 'formularios/crear_guitarra_manual.html', context)
-'''
-
 
 
 #CRUD: READ con archivo JSON
@@ -74,6 +73,27 @@ def lista_guitarras_db(request):
     lista_guitarras = list(Guitarra.objects.all().values())
     guitarras = {'guitarras': lista_guitarras}
     return render(request, 'formularios/lista_guitarras_db.html', context=guitarras)
+
+
+#CRUD: UPDATE con Base de Datos
+def editar_guitarra_db(request, id):
+    guitarra = Guitarra.objects.filter(id=id).values()[0]
+    print(guitarra)
+    formulario = PrimerFormulario(request.POST or None, initial=guitarra)
+    if formulario.is_valid():
+        form_data = formulario.cleaned_data
+        form_data['fecha_compra']=form_data['fecha_compra'].strftime("%Y-%m-%d")
+        musico_primero = Musico.objects.all()[0]
+        Guitarra.objects.filter(id=id).update(
+                    marca=form_data['marca'], 
+					modelo=form_data['modelo'], 
+					cuerdas=form_data['cuerdas'], 
+					fecha_compra=form_data['fecha_compra'],
+                    musico = musico_primero
+                    )
+        return redirect('formularios:lista_guitarras_db')
+    context = {'form': formulario, 'id':id}
+    return render(request, 'formularios/editar_guitarra_db.html', context)
 
 
 #CRUD: DELETE con archivo JSON

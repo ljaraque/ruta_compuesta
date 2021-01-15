@@ -1,15 +1,41 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="{% static 'formularios/css/styles.css' %}">
 </head>
 <body>
     <h2>Listado Actualizado de Nuestras Guitarras</h2>
-    <h4><a href="{% url 'formularios:crear_guitarra_db' %}">Crear otra guitarra</a></h4>
+    <h4><a class="boton" href="{% url 'formularios:crear_guitarra_db' %}">Crear Nueva Guitarra</a></h4>
+    <table class="table">
+        <tr>
+            <th>Marca</th>
+            <th>Modelo</th>
+            <th>Cuerdas</th>
+            <th>Madera</th>
+            <th>Fecha Compra</th>
+            <th></th>
+            <th></th>
+        </tr>    
+
     {% for guitarra in guitarras %}
-    <p>{{guitarra}} <a href="{% url 'formularios:eliminar_guitarra_db' id=guitarra.id %}"> | Eliminar</a></p> 
+        <tr>
+            <td>{{guitarra.marca}}</td>
+            <td>{{guitarra.modelo}}</td>
+            <td>{{guitarra.cuerdas}}</td>
+            <td>{{guitarra.madera}}</td>
+            <td>{{guitarra.fecha_compra}}</td>
+            <td>
+                <a class="boton" href="{% url 'formularios:editar_guitarra_db' id=guitarra.id %}"> Editar</a>
+            </td>
+            <td>
+                <a class="boton" href="{% url 'formularios:eliminar_guitarra_db' id=guitarra.id %}"> Eliminar</a>
+            </td>
+        </tr>
     {% endfor %}
+    </table>
 </body>
 </html>

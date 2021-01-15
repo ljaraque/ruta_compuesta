@@ -1,8 +1,13 @@
+import json
+
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import PrimerFormulario
 from django.conf import settings
-import json
-from .models import Guitarra, Musico
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .models import Guitarra, Musico, GuitarraCBV
+from django.urls import reverse_lazy
+
 
 #CRUD: CREATE con archivoListado Actualizado de Nuestras Guitarras
 def crear_guitarra(request):
@@ -113,6 +118,7 @@ def eliminar_guitarra(request, id):
     context = {'id': id} 
     return render(request, "formularios/eliminar_guitarra.html", context)
 
+
 #CRUD: DELETE con Base de Datos
 def eliminar_guitarra_db(request, id):
     if request.method == "POST":
@@ -143,3 +149,41 @@ def prueba_models(request):
     guitarras = Guitarra.objects.values()
     context = {'guitarras': guitarras}
     return render(request, 'formularios/prueba_models.html', context)
+
+
+# CRUD: Vistas Basadas en Clases
+
+'''
+class ListaGuitarras(ListView):
+    model = GuitarraCBV
+    fields = '__all__'
+    success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
+
+
+class CrearGuitarra(CreateView):
+    model = GuitarraCBV
+    fields = '__all__'
+    success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
+
+
+class EditarGuitarra(UpdateView):
+    model = GuitarraCBV
+    fields = '__all__'
+    success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
+
+
+class EliminarGuitarra(DeleteView):
+    model = GuitarraCBV
+    fields = '__all__'
+    success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
+'''
+
+
+atributos = dict(model = GuitarraCBV, fields = '__all__',
+              success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
+              )
+
+ListaGuitarras = type('ListaGuitarras', (ListView,), atributos)
+CrearGuitarra = type('CrearGuitarra', (CreateView,), atributos)
+EditarGuitarra = type('EditarGuitarra', (UpdateView,), atributos)
+EliminarGuitarra = type('EliminarGuitarra', (DeleteView,), atributos)

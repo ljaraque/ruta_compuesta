@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="{% url 'formularios:eliminar_guitarra_db_cbv' pk=guitarracbv.id %}" method="POST"> 
+        {% csrf_token %} 
+        Está seguro de eliminar la guitarra con id = {{guitarracbv.id}}? 
+        <input type="submit" value="Sí" /> 
+        <a href="{% url 'formularios:lista_guitarras_db_cbv' %}">Cancelar</a> 
+    </form> 
+</body>
+</html>

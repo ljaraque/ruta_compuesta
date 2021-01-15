@@ -1,7 +1,8 @@
+import datetime
 from django import forms
 from django.core import validators
 from django.core.exceptions import ValidationError
-import datetime
+from .models import GuitarraCBV
 
 
 def validar_fecha(fecha):
@@ -29,3 +30,11 @@ class PrimerFormulario(forms.Form):
     fecha_compra = forms.DateField(
                 validators=[validar_fecha]
     )
+
+
+# Form for Vistas Basadas en Clases
+
+class PrimerFormularioCBV(forms.ModelForm):
+    class Meta:
+        model = GuitarraCBV
+        fields = '__all__'

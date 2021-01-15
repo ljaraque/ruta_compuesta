@@ -153,7 +153,7 @@ def prueba_models(request):
 
 # CRUD: Vistas Basadas en Clases
 
-'''
+
 class ListaGuitarras(ListView):
     model = GuitarraCBV
     fields = '__all__'
@@ -176,14 +176,14 @@ class EliminarGuitarra(DeleteView):
     model = GuitarraCBV
     fields = '__all__'
     success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
+
+
 '''
-
-
 atributos = dict(model = GuitarraCBV, fields = '__all__',
               success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
               )
-
 ListaGuitarras = type('ListaGuitarras', (ListView,), atributos)
 CrearGuitarra = type('CrearGuitarra', (CreateView,), atributos)
 EditarGuitarra = type('EditarGuitarra', (UpdateView,), atributos)
 EliminarGuitarra = type('EliminarGuitarra', (DeleteView,), atributos)
+'''

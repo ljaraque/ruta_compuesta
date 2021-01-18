@@ -18,6 +18,9 @@ class Guitarra(models.Model):
     madera = models.CharField(max_length=20, default="No informada")
     fecha_compra = models.DateField()
     musico = models.ForeignKey(Musico, on_delete=models.CASCADE, default=None)
+    
+    class Meta: 
+        ordering=['id']
 
 
 class Banda(models.Model):

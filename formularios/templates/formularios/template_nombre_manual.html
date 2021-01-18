@@ -10,6 +10,8 @@
 </head>
 <body>
     <h2>Listado Actualizado de Nuestras Guitarras</h2>
+    <h2>{{saludo}}</h2>
+    <h4>{{fecha_hoy}}</h4>
     <h4><a class= "boton" href="{% url 'formularios:crear_guitarra_db_cbv' %}">Crear otra guitarra</a></h4>
     <table class="table">
         <tr>
@@ -23,7 +25,7 @@
             <th></th>
         </tr>    
 
-    {% for guitarra in guitarracbv_list %}
+    {% for guitarra in guitarras %}
         <tr>
             <td>{{guitarra.id}}</td>
             <td>{{guitarra.marca}}</td>

@@ -155,10 +155,20 @@ def prueba_models(request):
 
 #CRUD vistas basadas en clases
 
+'''
+# esta clase se dejó comentada pues la alteramos para mostrar que también 
+# se puede personalizar a cierto nivel
+class ListGuitarras(ListView):
+    model=GuitarraCBV
+    fields='__all__'
+'''
+
 class ListaGuitarras(ListView):
     model=GuitarraCBV
     fields='__all__'
-    success_url=reverse_lazy('formularios:lista_guitarras_db_cbv')
+    template_name = "formularios/template_nombre_manual.html"
+    context_object_name = "guitarras"
+    extra_context = {'fecha_hoy': "18 de Enero 2021", 'saludo': "Hola amigos!!"}
 
 
 class CrearGuitarra(CreateView):

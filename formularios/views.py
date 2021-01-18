@@ -6,6 +6,7 @@ from .models import Guitarra, Musico, GuitarraCBV
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.views.generic.base import View
 
 
 #CRUD: CREATE con archivo
@@ -80,6 +81,15 @@ def lista_guitarras_db(request):
     return render(request, 'formularios/lista_guitarras_db.html', context=guitarras)
 
 
+class ListaGuitarrasView(View):
+    template_name = 'formularios/lista_guitarras_db.html'
+    model = Guitarra
+
+    def get(self, request):
+        lista_guitarras = list(self.model.objects.all().values())
+        guitarras = {'guitarras': lista_guitarras}
+        return render(request, self.template_name , context=guitarras)
+
 #CRUD: UPDATE CON BASE DE DATOS
 def editar_guitarra_db(request, id):
     guitarra = Guitarra.objects.filter(id=id).values()[0]
@@ -100,7 +110,37 @@ def editar_guitarra_db(request, id):
     context = {'form': formulario, 'id' : id}
     return render(request, 'formularios/editar_guitarra_db.html', context)
 
+#CRUD: UPDATE CON BASE DE DATOS Y CLASE VIEW
 
+class EditarGuitarraView(View):
+    template_name =  'formularios/editar_guitarra_db.html'
+    model = Guitarra
+
+    def get(self, id):
+        guitarra = self.model.objects.filter(id=id).values()[0]
+        formulario = PrimerFormulario(request.POST or None, initial=guitarra)
+        context = {'form': formulario, 'id' : id}
+        return render(request, self.template_name , context)
+
+    def post(self):
+        if formulario.is_valid():
+            form_data = formulario.cleaned_data
+            form_data['fecha_compra']=form_data['fecha_compra'].strftime("%Y-%m-%d")
+            musico = guitarra['musico_id']
+            self.model.objects.filter(id=id).update(
+                        marca=form_data['marca'], 
+                        modelo=form_data['modelo'], 
+                        cuerdas=form_data['cuerdas'], 
+                        fecha_compra=form_data['fecha_compra'],
+                        musico = musico
+                        )
+
+            return redirect('formularios:lista_guitarras_db')
+
+
+class EditarGuitarraNada(EditarGuitarraView):
+    template_name = 'formularios/editar_guitarra_nada.html'
+    model = Guitarra
 
 
 #CRUD: DELETE con archivo JSON
@@ -119,6 +159,7 @@ def eliminar_guitarra(request, id):
         return redirect('formularios:crear_exitoso')
     context = {'id': id} 
     return render(request, "formularios/eliminar_guitarra.html", context)
+
 
 #CRUD: DELETE con Base de Datos
 def eliminar_guitarra_db(request, id):
@@ -187,3 +228,4 @@ class EditarGuitarra(UpdateView):
     model=GuitarraCBV
     fields='__all__'
     success_url=reverse_lazy('formularios:lista_guitarras_db_cbv')
+

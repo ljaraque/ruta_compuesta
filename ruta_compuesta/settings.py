@@ -80,7 +80,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'ruta_compuesta_154_2',
-        'USER': 'postgres',
+        'USER': 'root',
         'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '5432',

@@ -95,12 +95,15 @@ class ListaGuitarrasView(View):
 
 #CRUD: UPDATE con Base de Datos
 def editar_guitarra_db(request, id):
+
     guitarra = Guitarra.objects.filter(id=id).values()[0]
     print(guitarra)
     formulario = PrimerFormulario(request.POST or None, initial=guitarra)
+
     if formulario.is_valid():
         form_data = formulario.cleaned_data
-        form_data['fecha_compra']=form_data['fecha_compra'].strftime("%Y-%m-%d")
+        form_data['fecha_compra']=(form_data['fecha_compra']
+                                            .strftime("%Y-%m-%d"))
         musico_primero = Musico.objects.all()[0]
         Guitarra.objects.filter(id=id).update(
                     marca=form_data['marca'], 
@@ -110,6 +113,7 @@ def editar_guitarra_db(request, id):
                     musico = musico_primero
                     )
         return redirect('formularios:lista_guitarras_db')
+        
     context = {'form': formulario, 'id':id}
     return render(request, 'formularios/editar_guitarra_db.html', context)
 
@@ -131,7 +135,8 @@ class EditarGuitarraView(View):
         formulario = self.form_class(request.POST or None, initial=guitarra)
         if formulario.is_valid():
             form_data = formulario.cleaned_data
-            form_data['fecha_compra']=form_data['fecha_compra'].strftime("%Y-%m-%d")
+            form_data['fecha_compra']=(form_data['fecha_compra']
+                                            .strftime("%Y-%m-%d"))
             musico_primero = Musico.objects.all()[0]
             Guitarra.objects.filter(id=id).update(
                         marca=form_data['marca'], 
@@ -199,7 +204,6 @@ def prueba_models(request):
 class ListaGuitarras(ListView):
     model = GuitarraCBV
     fields = '__all__'
-    success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
 
 
 class CrearGuitarra(CreateView):

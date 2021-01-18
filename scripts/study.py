@@ -41,9 +41,10 @@ def inspecciona_clase(objeto):
     print("\nInspeccionando Clase {}!".format(str(objeto)))
     print("------------------------------------------------------------")
     print("\ndir:\n", dir(objeto))
+    print("--------------------------------------------
+    print("NOMBRE:\n", str(clase_vista))
     print("------------------------------------------------------------------")
-    print("HERENCIA:\n", objeto.__mro__)
-    diccionario_objeto = {k: getattr(objeto, k) for k in dir(objeto)}
+    print("CONTENIDOn dir(objeto)}
     for k, v in diccionario_objeto.items():
         print("------------------------------------------------------------")
         if not callable(v):

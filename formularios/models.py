@@ -20,6 +20,8 @@ class Guitarra(models.Model):
     fecha_compra = models.DateField()
     musico = models.ForeignKey(Musico, on_delete=models.CASCADE, default=None)
 
+    class Meta:
+        ordering=['id']
 
 class Banda(models.Model):
     nombre = models.CharField(max_length=80)

@@ -7,6 +7,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Guitarra, Musico, GuitarraCBV
 from django.urls import reverse_lazy
+from django.views.generic.base import View
 
 
 #CRUD: CREATE con archivoListado Actualizado de Nuestras Guitarras
@@ -80,6 +81,18 @@ def lista_guitarras_db(request):
     return render(request, 'formularios/lista_guitarras_db.html', context=guitarras)
 
 
+#CRUD: READ con Base de Datos y Clase View
+class ListaGuitarrasView(View):
+
+    template_name = 'formularios/lista_guitarras_db_view.html'
+    model = Guitarra
+
+    def get(self, request):
+        lista_guitarras = list(self.model.objects.all().values())
+        guitarras = {'guitarras': lista_guitarras}
+        return render(request, self.template_name, context=guitarras)
+
+
 #CRUD: UPDATE con Base de Datos
 def editar_guitarra_db(request, id):
     guitarra = Guitarra.objects.filter(id=id).values()[0]
@@ -99,6 +112,35 @@ def editar_guitarra_db(request, id):
         return redirect('formularios:lista_guitarras_db')
     context = {'form': formulario, 'id':id}
     return render(request, 'formularios/editar_guitarra_db.html', context)
+
+#CRUD: UPDATE con Base de Datos y Clase View
+class EditarGuitarraView(View):
+    
+    form_class = PrimerFormulario
+    model = Guitarra
+    template_name = 'formularios/editar_guitarra_db.html'
+
+    def get(self, request, id):
+        guitarra = self.model.objects.filter(id=id).values()[0]
+        formulario = self.form_class(request.POST or None, initial=guitarra)
+        context = {'form': formulario, 'id':id}
+        return render(request, self.template_name, context)
+
+    def post(self, request, id):
+        guitarra = self.model.objects.filter(id=id).values()[0]
+        formulario = self.form_class(request.POST or None, initial=guitarra)
+        if formulario.is_valid():
+            form_data = formulario.cleaned_data
+            form_data['fecha_compra']=form_data['fecha_compra'].strftime("%Y-%m-%d")
+            musico_primero = Musico.objects.all()[0]
+            Guitarra.objects.filter(id=id).update(
+                        marca=form_data['marca'], 
+                        modelo=form_data['modelo'], 
+                        cuerdas=form_data['cuerdas'], 
+                        fecha_compra=form_data['fecha_compra'],
+                        musico = musico_primero
+                        )
+            return redirect('formularios:lista_guitarras_db_view')
 
 
 #CRUD: DELETE con archivo JSON

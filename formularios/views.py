@@ -37,15 +37,16 @@ def crear_guitarra_db(request):
         form_data = formulario.cleaned_data
         form_data['fecha_compra']=form_data['fecha_compra'].strftime("%Y-%m-%d")
         musico_primero = Musico.objects.all()[0]
-        Guitarra.objects.create(
+        guitarra = Guitarra.objects.create(
                     marca=form_data['marca'], 
 					modelo=form_data['modelo'], 
 					cuerdas=form_data['cuerdas'], 
 					fecha_compra=form_data['fecha_compra'],
                     musico = musico_primero
                     )
-        messages.success(request, 'La guitarra se agregó exitósamente!')
+        messages.success(request, 'La nueva guitarra de id='+ str(guitarra.id)+' ha sido creada!')
         return redirect('formularios:lista_guitarras_db')
+        
     return render(request, 'formularios/crear_guitarra_db.html', context)
 
 
@@ -107,7 +108,7 @@ def editar_guitarra_db(request, id):
 					fecha_compra=form_data['fecha_compra'],
                     musico = musico
                     )
-
+        
         return redirect('formularios:lista_guitarras_db')
     context = {'form': formulario, 'id' : id}
     return render(request, 'formularios/editar_guitarra_db.html', context)

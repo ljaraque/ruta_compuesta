@@ -29,3 +29,19 @@ th, .boton {
     border-style: solid;
     border-width: thin;
 }
+
+#msg {
+    background-color: aquamarine; 
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10px;
+    border: red 1px solid;
+    width: 40%;
+    color:#555;
+    position:absolute;
+    left:50%;
+}
+
+#main{
+    overflow-y:auto;
+    margin-top=60px;
+}

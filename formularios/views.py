@@ -157,8 +157,6 @@ def prueba_models(request):
 
 class ListaGuitarras(ListView):
     model=GuitarraCBV
-    fields='__all__'
-    success_url=reverse_lazy('formularios:lista_guitarras_db_cbv')
 
 
 class CrearGuitarra(CreateView):

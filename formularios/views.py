@@ -206,7 +206,6 @@ class ListGuitarras(ListView):
 
 class ListaGuitarras(ListView):
     model=GuitarraCBV
-    fields='__all__'
     template_name = "formularios/template_nombre_manual.html"
     context_object_name = "guitarras"
     extra_context = {'fecha_hoy': "18 de Enero 2021", 'saludo': "Hola amigos!!"}

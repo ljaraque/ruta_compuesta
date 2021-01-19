@@ -7,6 +7,7 @@ from django.views.generic import ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.views.generic.base import View
+from django.contrib import messages
 
 
 #CRUD: CREATE con archivo
@@ -43,6 +44,7 @@ def crear_guitarra_db(request):
 					fecha_compra=form_data['fecha_compra'],
                     musico = musico_primero
                     )
+        messages.success(request, 'La guitarra se agregó exitósamente!')
         return redirect('formularios:lista_guitarras_db')
     return render(request, 'formularios/crear_guitarra_db.html', context)
 
@@ -110,8 +112,8 @@ def editar_guitarra_db(request, id):
     context = {'form': formulario, 'id' : id}
     return render(request, 'formularios/editar_guitarra_db.html', context)
 
-#CRUD: UPDATE CON BASE DE DATOS Y CLASE VIEW
 
+#CRUD: UPDATE CON BASE DE DATOS Y CLASE VIEW
 class EditarGuitarraView(View):
     template_name =  'formularios/editar_guitarra_db.html'
     model = Guitarra
@@ -138,6 +140,11 @@ class EditarGuitarraView(View):
             return redirect('formularios:lista_guitarras_db')
 
 
+# Esta clase EditarGuitarraNada hereda de EditarGuitarraView que hemos creado arria, 
+# e intenta ilustrar la forma en que llegan a ser posibles las clases:
+# CrearGuitarra, EditarGuitarra, ListaGuitarras, EliminarGuitarra 
+# solo definiendo 1 a 3 lineas de atributos solamente. 
+# path() en urls.py no ha sido implementada para esta vista.
 class EditarGuitarraNada(EditarGuitarraView):
     template_name = 'formularios/editar_guitarra_nada.html'
     model = Guitarra
@@ -201,9 +208,10 @@ def prueba_models(request):
 # se puede personalizar a cierto nivel
 class ListGuitarras(ListView):
     model=GuitarraCBV
-    fields='__all__'
 '''
 
+# Clase ListView utilizada sobreescribiendo los atributos por defecto
+# para model, template_name, context_object_name, extra_context
 class ListaGuitarras(ListView):
     model=GuitarraCBV
     template_name = "formularios/template_nombre_manual.html"

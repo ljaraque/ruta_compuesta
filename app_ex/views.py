@@ -22,7 +22,7 @@ def inicio(request):
             print(key + " :=>" + request.session[key])
         return render(
                     request, 
-                    'app_ex/elefante.html', 
+                    'app_ex/index.html', 
                     context={'texto':'Texto de Ejercicio 1'}
                     )
     loginurl = reverse('login') + '?' + urlencode({'next': request.path})

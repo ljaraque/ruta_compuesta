@@ -1,7 +1,10 @@
+import json
+
 from django.shortcuts import render, redirect
 from .forms import PrimerFormulario
 from django.conf import settings
-import json
+from .models import Guitarra
+
 
 def crear_guitarra(request):
     form = PrimerFormulario()
@@ -32,3 +35,16 @@ def crear_exitoso(request):
     with open(str(settings.BASE_DIR)+filename, "r") as file:
         guitarras=json.load(file)
     return render(request, 'formularios/crear_exitoso.html', context=guitarras)
+
+
+def prueba_models(request):
+    for i in range(0,4):
+        guitarra = Guitarra(marca='Jackson', modelo='RR3', cuerdas=7, fecha_compra='2020-12-01')
+        guitarra.save()
+    
+    valores = { 'guitarras': Guitarra.objects.all(),
+                'guitarras_values': Guitarra.objects.values()}
+    print(valores)
+    return render(request, 'formularios/prueba_models.html', context=valores)
+    
+    

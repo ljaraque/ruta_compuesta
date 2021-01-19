@@ -14,4 +14,7 @@ urlpatterns = [
     path("crear_exitoso", 
             views.crear_exitoso, 
             name="crear_exitoso"),
+    path("prueba_models", 
+            views.prueba_models, 
+            name="prueba_models"),
 ]

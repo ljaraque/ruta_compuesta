@@ -29,3 +29,14 @@ th, .boton {
     border-style: solid;
     border-width: thin;
 }
+
+#mensaje {
+    background-color: aquamarine; 
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    border: red 1px solid;
+    width: 40%;
+    color:#555;
+    position:absolute;
+    left:50%;
+}

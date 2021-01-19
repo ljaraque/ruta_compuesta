@@ -9,6 +9,13 @@
   
 </head>
 <body>
+    {% if messages %} 
+        <div id="mensaje">
+            {% for mensaje in messages %}
+            <h4>{{mensaje}}</h4>
+            {% endfor %}
+        </div>
+    {% endif %}
     <h2>Listado Actualizado de Nuestras Guitarras</h2>
     <h4><a class= "boton" href="{% url 'formularios:crear_guitarra_db' %}">Crear otra guitarra</a></h4>
     <table class="table">
@@ -40,7 +47,14 @@
         </tr>
     {% endfor %}
     </table>
-
+<script>
+    var msg = document.getElementById('mensaje');
+    setTimeout(function(){
+        if (typeof(msg) != 'undefined' && msg != null){
+            msg.remove();
+        }
+    },3000)
+</script>
     
 </body>
 </html>

@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 import csv
 import uuid
+from django.views.generic.base import View
 
 # Create your views here.
 
@@ -25,9 +26,13 @@ def inicio(request):
                 value = "Eres un ganador"
         )
     return response
-     
 
+#Forma facil de hacer login con django
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url='/accounts/login/')
 def empresa(request):
+
     return render(
         request, 
         'app_ex/empresa.html', 
@@ -42,8 +47,16 @@ def contacto(request):
         )
 
 import random 
+from django.shortcuts import reverse, redirect
+from django.utils.http import urlencode
 
-def personas(request): 
+#VALIDANDO QUE EL USUARIO SE ENCUENTRE AUTENTICADO SI NO ESTA AUTENTICADO TE ENVIA AL LOGIN CON UN NEXT
+
+def personas(request):
+    if not request.user.is_authenticated :
+        loginurl = reverse('login')+'?'+urlencode({'next': request.path})
+        return redirect(loginurl)
+ 
     nombres = ['Juana', 'Rosa', 'Luis', 'Rodrigo','Sarah', 'Rocio', 'Emmanuel'] 
     nuevos = ['Lucía', 'Ronaldo'] 
     lista_aleatoria = [i for i in range(random.randint(1,10))] 
@@ -71,3 +84,18 @@ def tabladatos(request):
     datos_para_context['num_visitas']=request.session['visitas']
 
     return render(request, 'app_ex/iris.html', context = datos_para_context)
+
+def map(request):
+    return render(request,'app_ex/map.html')
+
+
+from .models import Profile
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class MiPerfil(LoginRequiredMixin, View):
+    def get(self, request):
+        usuario_id = request.user.id #OBTENER ID DEL USUARIO QUE ESTA VISITANDO LA VISTA
+        perfil = Profile.objects.filter(usuario_id=usuario_id).values()[0]
+        print(perfil)
+        context = {'perfil':perfil}
+        return render(request, 'app_ex/pagina_personalizada.html', context=context)

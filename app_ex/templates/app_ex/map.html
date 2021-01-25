@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Página de Enlaces del Sistema</h1>
+    <p><b>Ruta actual:</b> {{ request.path }}</p>
+    {% if user.is_authenticated %}
+    <p><b>Usuario Id:</b> {{user.id}}<br><b>Nombre:</b> {{ user.get_full_name }}<br><b>Email:</b> {{ user.email }}</p>
+    <p><a href="{% url 'logout' %}?next={% url 'app_ex:map' %}">{{request.get_host}}{% url 'logout' %}?next={% url 'app_ex:map' %}</a></p>
+
+    {% else %}
+    <p><a href="{% url 'login' %}?next={{ request.path }}">{{request.get_host}}{% url 'login' %}?next={{ request.path }}</a> <br>Página de Login - Autentica y vuelve a esta página</p>
+    {% endif %}
+    <h3>Nuestras secciones:</h3>
+    <ul>
+
+        <li>
+            <p>
+                <a href="{% url 'app_ex:inicio' %}">{{request.get_host }}{% url 'app_ex:inicio' %}</a>: 
+                <br>Página de Inicio -- No requiere autenticación
+            </p>
+        </li>
+        <li>
+            <p>
+                <a href="{% url 'app_ex:mi_perfil' %}">{{request.get_host }}{% url 'app_ex:mi_perfil' %}</a>: 
+                <br>Página de Inicio -- Requiere autenticación (LoginRequiredMixin)
+            </p>
+        </li>
+        <li>
+            <p>
+                <a href="{% url 'app_ex:empresa' %}">{{request.get_host }}{% url 'app_ex:empresa' %}</a>: 
+                <br>Descripción de Empresa -- Requiere autenticación (@login_required)
+            </p>
+        </li>
+        <li>
+            <p>
+            <a href="{% url 'app_ex:tabladatos' %}">{{request.get_host }}{% url 'app_ex:tabladatos' %}</a>:
+                <br>Página de Datos-- No requiere autenticación
+            </p>
+        </li>
+        <li>
+            <p>
+                <a href="{% url 'app_ex:personas' %}">{{request.get_host }}{% url 'app_ex:personas' %}</a>:
+                <br>Página de Personas -- Requiere autenticación (user.is_authenticated)
+            </p>
+        </li>
+    </ul>
+</body>
+</html>

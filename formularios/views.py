@@ -107,7 +107,7 @@ def editar_guitarra_db(request, id):
 					fecha_compra=form_data['fecha_compra'],
                     musico = musico
                     )
-
+        messages.success(request, 'La guitarra de ID= '+str(guitarra.id)+' ha sido editada!, Felicitaciones')
         return redirect('formularios:lista_guitarras_db')
     context = {'form': formulario, 'id' : id}
     return render(request, 'formularios/editar_guitarra_db.html', context)
@@ -172,8 +172,9 @@ def eliminar_guitarra(request, id):
 def eliminar_guitarra_db(request, id):
     if request.method == "POST":
         Guitarra.objects.filter(id=id).delete()
+        messages.success(request, 'La guitarra de ID= '+str(guitarra.id)+' ha sido eliminada!, Felicitaciones') 
         return redirect('formularios:lista_guitarras_db')
-    context = {'id': id} 
+    context = {'id': id}
     return render(request, "formularios/eliminar_guitarra_db.html", context)
 
 

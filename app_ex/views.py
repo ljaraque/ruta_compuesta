@@ -55,6 +55,7 @@ from django.utils.http import urlencode
 def personas(request):
     if not request.user.is_authenticated :
         loginurl = reverse('login')+'?'+urlencode({'next': request.path})
+        print(loginurl)
         return redirect(loginurl)
  
     nombres = ['Juana', 'Rosa', 'Luis', 'Rodrigo','Sarah', 'Rocio', 'Emmanuel'] 
@@ -99,3 +100,29 @@ class MiPerfil(LoginRequiredMixin, View):
         print(perfil)
         context = {'perfil':perfil}
         return render(request, 'app_ex/pagina_personalizada.html', context=context)
+
+
+from django.contrib.auth.mixins import UserPassesTestMixin
+
+
+def es_jefe(user):
+    rol = user.profile.rol
+    if rol == "Jefe":
+        return True
+    else:
+        return False 
+    
+
+class ListaEmpleados(LoginRequiredMixin, UserPassesTestMixin, View):
+    
+    def test_func(self):
+        user = self.request.user
+        return es_jefe(user)
+
+    def get(self, request):
+        usuario_id = request.user.id
+        perfiles = Profile.objects.filter()
+        context = {'perfiles': perfiles}
+        return render(request, 'app_ex/lista_empleados.html', context)
+
+

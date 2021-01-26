@@ -91,9 +91,8 @@ DATABASES = {
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = []
 
-'''
+
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -108,7 +107,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-'''
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -142,3 +141,9 @@ STATICFILES_DIRS = [
 '''
 
 LOGIN_REDIRECT_URL = '/'
+
+### Auto Logout si no hay actividad en un período determinado (en segundos)
+
+SESSION_COOKIE_AGE = 60*5                # 5 minutos
+SESSION_SAVE_EVERY_REQUEST = True        # cada request renueva el tiempo
+

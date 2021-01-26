@@ -32,6 +32,12 @@
         </li>
         <li>
             <p>
+                <a href="{% url 'app_ex:empleados' %}">{{request.get_host }}{% url 'app_ex:empleados' %}</a>: 
+                <br>Página de Empleaos -- Requiere Autenticación y Autorización (LoginRequiredMixin, UserPassesTestMixin)
+            </p>
+        </li>
+        <li>
+            <p>
                 <a href="{% url 'app_ex:empresa' %}">{{request.get_host }}{% url 'app_ex:empresa' %}</a>: 
                 <br>Descripción de Empresa -- Requiere autenticación (@login_required)
             </p>

@@ -12,5 +12,6 @@ urlpatterns = [
     path("map/", views.map, name="map"),
     path("tabladatos/", views.tabladatos, name="tabladatos"),
     path("mi_perfil/", views.MiPerfil.as_view(), name="mi_perfil"),
+    path("empleados/", views.ListaEmpleados.as_view(), name="empleados")
 
 ]
